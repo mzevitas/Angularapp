@@ -1,8 +1,7 @@
-<div class="setOne">
-<!-- <p ng-click="viewMore">
- -->
+<div class="setList">
+<p ng-repeat="s in song" ng-click="viewMore(s)">
 
- <p>
-     {{ song.name }} by {{ song.band }}
+     {{ s.name }} by {{ s.band }}
+
   </p>
 </div>

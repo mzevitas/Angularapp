@@ -22,15 +22,14 @@
     <!-- endbuild -->
   </head>
   <body ng-app="SetList">
-        <h1><a href="/#">My Set List</a></h1>
 
-    <a href="#/setone/">Set 1</a> | <a href="#/settwo/">Set 2</a> | <a href="#/add/">Add</a>
-      
-    <div class="container" ng-view>
+    <div class="main">
+        <h1>My Set List</h1>
 
-
+        <a href="#/">Songs</a> | <a href="#/add/">Add</a>
+          
+        <div class="container" ng-view></div>
     </div>
-
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -44,8 +43,10 @@
 
         <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
-        <script src="scripts/controllers/setlist_controller.js"></script>
         <script src="scripts/controllers/add_controller.js"></script>
+        <script src="scripts/controllers/setlist_controller.js"></script>
+        <script src="scripts/controllers/single_controller.js"></script>
+
 
         <!-- endbuild -->
 </body>

@@ -1,18 +1,17 @@
 (function (){
 
-  angular.module('SetList', [])
+  angular.module('SetList')
 
-  .controller('SetOneController', 
-    ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window) {
+  .controller('SetController', 
+    ['$scope', '$http', '$location', 'appUrl', function ($scope, $http, $location, appUrl) {
 
-    $window.url = 'http://tiy-atl-fe-server.herokuapp.com/collections/mzset/'; 
 
-    $http.get(url).success( function (results){
+    $http.get(appUrl).success( function (results){
       $scope.song = results;
     });
 
     $scope.viewMore = function (songs) {
-      $location.path('/' + songs._id);
+      $location.path('/single/' + songs._id);
     };
 
 

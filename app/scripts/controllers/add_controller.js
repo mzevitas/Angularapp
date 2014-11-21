@@ -1,15 +1,15 @@
 (function () {
 
-  angular.module('SetList', [])
+  angular.module('SetList')
   .controller('AddController', 
-    ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window) {
+    ['$scope', '$http', '$location', 'appUrl', function ($scope, $http, $location, appUrl) {
 
-    $scope.song = {};
+    $scope.songs = {};
 
-    $scope.addSong = function () {
+    $scope.addSongs = function () {
 
-      $http.post($window.url, $scope.song).success( function (data) {
-        $location.path('/setone');
+      $http.post(appUrl, $scope.songs).success( function (data) {
+        $location.path('#/');
       });
 
     };
