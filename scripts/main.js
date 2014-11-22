@@ -2,12 +2,16 @@
 
 angular.module('SetList', ['ngRoute'])
 
+.constant ({
+    'appUrl': 'http://tiy-atl-fe-server.herokuapp.com/collections/mzset1/'
+  })
+
 .config( function ($routeProvider){
 
 
-$routeProvider.when('/setone', {
+$routeProvider.when('/', {
 	templateUrl: 'templates/setlist_template.html',
-	controller: 'SetOneController'
+	controller: 'SetController'
 
 });
 
@@ -18,44 +22,29 @@ $routeProvider.when('/add', {
 
 });
 
+$routeProvider.when('/single/:sid', {
+  templateUrl: 'templates/single_template.html',
+  controller: 'SingleController'
+});
+
+
 
 });
 
 }());
 
-(function (){
-
-  angular.module('SetList', [])
-
-  .controller('SetOneController', 
-    ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window) {
-
-    $window.url = 'http://tiy-atl-fe-server.herokuapp.com/collections/mzset/'; 
-
-    $http.get(url).success( function (results){
-      $scope.song = results;
-    });
-
-    $scope.viewMore = function (songs) {
-      $location.path('/' + songs._id);
-    };
-
-
-  }]);
-
-}());
 (function () {
 
-  angular.module('SetList', [])
+  angular.module('SetList')
   .controller('AddController', 
-    ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window) {
+    ['$scope', '$http', '$location', 'appUrl', function ($scope, $http, $location, appUrl) {
 
-    $scope.song = {};
+    $scope.songs = {};
 
-    $scope.addSong = function () {
+    $scope.addSongs = function () {
 
-      $http.post($window.url, $scope.song).success( function (data) {
-        $location.path('/setone');
+      $http.post(appUrl, $scope.songs).success( function (data) {
+        $location.path('/');
       });
 
     };
@@ -63,4 +52,37 @@ $routeProvider.when('/add', {
   }]);
 
 
+}());
+(function (){
+
+  angular.module('SetList')
+
+  .controller('SetController', 
+    ['$scope', '$http', '$location', 'appUrl', function ($scope, $http, $location, appUrl) {
+
+
+    $http.get(appUrl).success( function (results){
+      $scope.song = results;
+    });
+
+    $scope.viewMore = function (songs) {
+      $location.path('/single/' + songs._id);
+    };
+
+
+  }]);
+
+}());
+(function () {
+  
+  angular.module('SetList')
+  .controller('SingleController', 
+    ['$scope', '$routeParams', '$http', 'appUrl', function ($scope, $routeParams, $http, appUrl) {
+
+      $http.get(appUrl + $routeParams.sid).success( function (data) {
+        $scope.songs = data;
+      });
+
+  }]);
+  
 }());
